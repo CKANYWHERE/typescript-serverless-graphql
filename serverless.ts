@@ -15,7 +15,7 @@ const serverlessConfiguration: Serverless = {
     }
   },
   // Add the serverless-webpack plugin
-  plugins: ['serverless-webpack'],
+  plugins: ['serverless-webpack','serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs12.x',
@@ -27,13 +27,21 @@ const serverlessConfiguration: Serverless = {
     },
   },
   functions: {
-    hello: {
-      handler: 'handler.hello',
+    graphql: {
+      handler: './src/handler.graphql',
       events: [
         {
           http: {
             method: 'get',
-            path: 'hello',
+            path: 'graphql',
+            cors:true
+          }
+        },
+        {
+          http: {
+            method: 'post',
+            path:'graphql',
+            cors:true
           }
         }
       ]
